@@ -69,7 +69,7 @@ function selected(route: any, nav: NavLink) {
         <RouterLink to="/" class="flex items-center">
           <img class="w-10 h-10" src="../../assets/logo.svg" />
           <h1 class="flex-1 ml-3 text-2xl font-semibold dark:text-white">
-            Ping.pub
+            D Explorer
           </h1>
         </RouterLink>
         <div
@@ -220,7 +220,7 @@ function selected(route: any, nav: NavLink) {
           class="py-2 px-4 flex items-center cursor-pointer rounded-lg hover:bg-gray-100 dark:hover:bg-[#373f59]"
         >
           <img
-            src="https://ping.pub/logos/osmosis.jpg"
+            src="/logos/osmosis.svg"
             class="w-6 h-6 rounded-full mr-3"
           />
           <div
@@ -235,7 +235,7 @@ function selected(route: any, nav: NavLink) {
           class="py-2 px-4 flex items-center cursor-pointer rounded-lg hover:bg-gray-100 dark:hover:bg-[#373f59]"
         >
           <img
-            src="https://ping.pub/logos/celestia.png"
+            src="/logos/celestia.png"
             class="w-6 h-6 rounded-full mr-3"
           />
           <div
@@ -276,7 +276,7 @@ function selected(route: any, nav: NavLink) {
 
         <div class="px-4 text-sm pt-2 text-gray-400 pb-2 uppercase">{{ $t('module.links') }}</div>
         <a
-          href="https://twitter.com/ping_pub"
+          href="https://twitter.com/d_validator"
           target="_blank"
           class="py-2 px-4 flex items-center cursor-pointer rounded-lg hover:bg-gray-100 dark:hover:bg-[#373f59]"
         >
@@ -289,7 +289,7 @@ function selected(route: any, nav: NavLink) {
         </a>
         <a
           v-if="showDiscord"
-          href="https://discord.com/invite/CmjYVSr6GW"
+          href="https://discord.com/#"
           target="_blank"
           class="py-2 px-4 flex items-center rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-[#373f59]"
         >
@@ -301,7 +301,7 @@ function selected(route: any, nav: NavLink) {
           </div>
         </a>
         <a
-          href="https://github.com/ping-pub/explorer/discussions"
+          href="https://github.com/phongdatgl"
           target="_blank"
           class="py-2 px-4 flex items-center rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-[#373f59]"
         >

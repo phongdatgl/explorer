@@ -11,10 +11,10 @@
       By&nbsp;
       <a
         class="link link-primary no-underline"
-        href="https://ping.pub"
+        href="https://explorer.dvalidator.com"
         target="_blank"
         rel="noopener noreferrer"
-        >Ping.pub</a
+        >explorer.dvalidator.com</a
       >
     </div>
     <div
