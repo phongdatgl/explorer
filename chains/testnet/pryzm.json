@@ -1,0 +1,21 @@
+{
+    "chain_name": "pryzm - testnet",
+    "api": [
+      "https://api-t.pryzm.nodestake.top"
+    ],
+    "rpc": [
+      "https://rpc-t.pryzm.nodestake.top"
+    ],
+    "sdk_version": "0.47.6",
+    "addr_prefix": "pryzm",
+    "min_tx_fee": "5000",
+    "logo": "/logos/pryzm.jpg",
+    "assets": [
+      {
+        "symbol": "PRYZM",
+        "base": "upryzm",
+        "exponent": 6,
+        "logo": "/logos/pryzm.jpg"
+      }
+    ]
+  }
