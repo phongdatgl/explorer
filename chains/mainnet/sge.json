@@ -1,0 +1,16 @@
+{
+    "chain_name": "Six Sigma (SGE)",
+    "api": ["https://rest.cosmos.directory/sge"],
+    "rpc": ["https://rpc.cosmos.directory/sge"],
+	"sdk_version": "v1.4.1",
+    "coin_type": 118,
+    "min_tx_fee": 1500,
+    "addr_prefix": "sge",
+    "logo": "/logos/sge.jpg",
+    "assets": [{
+        "base": "usge",
+        "symbol": "SGE",
+        "exponent": 6,
+        "logo": "/logos/sge.jpg"
+    }]
+}
