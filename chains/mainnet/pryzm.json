@@ -1,10 +1,10 @@
 {
-    "chain_name": "pryzm - testnet",
+    "chain_name": "pryzm-testnet",
     "api": [
-      "https://api-t.pryzm.nodestake.top"
+      "https://pryzm-testnet-api.itrocket.net/"
     ],
     "rpc": [
-      "https://rpc-t.pryzm.nodestake.top"
+      "https://pryzm-testnet-api.itrocket.net/"
     ],
     "sdk_version": "0.47.6",
     "addr_prefix": "pryzm",
