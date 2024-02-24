@@ -1,0 +1,16 @@
+{
+    "chain_name": "CrossFI",
+    "api": ["https://crossfi.api.dvalidator.com"],
+    "rpc": ["https://crossfi.api.dvalidator.com"],
+	"sdk_version": "v0.2.0",
+    "coin_type": 118,
+    "min_tx_fee": 1500,
+    "addr_prefix": "crossfi",
+    "logo": "/logos/crossfi.png",
+    "assets": [{
+        "base": "mpx",
+        "symbol": "MPX",
+        "exponent": 6,
+        "logo": "/logos/crossfi.png"
+    }]
+}
