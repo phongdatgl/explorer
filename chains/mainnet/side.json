@@ -1,7 +1,7 @@
 {
     "chain_name": "SideProtocol",
-    "api": ["http://side.api.dvalidator.com"],
-    "rpc": ["http://side.api.dvalidator.com"],
+    "api": ["http://52.199.111.241:26657"],
+    "rpc": ["http://52.199.111.241:26657"],
 	"sdk_version": "v1.4.1",
     "coin_type": 118,
     "min_tx_fee": 1500,
