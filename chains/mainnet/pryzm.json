@@ -1,12 +1,12 @@
 {
-    "chain_name": "pryzm-testnet",
+    "chain_name": "Pryzm-Testnet",
     "api": [
-      "https://pryzm-testnet-api.itrocket.net/"
+      "https://pryzm.api.dvalidator.com/"
     ],
     "rpc": [
-      "https://pryzm-testnet-api.itrocket.net/"
+      "https://pryzm.api.dvalidator.com/"
     ],
-    "sdk_version": "0.47.6",
+    "sdk_version": "0.11.1",
     "addr_prefix": "pryzm",
     "min_tx_fee": "5000",
     "logo": "/logos/pryzm.jpg",
