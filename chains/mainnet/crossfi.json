@@ -10,7 +10,7 @@
     "assets": [{
         "base": "mpx",
         "symbol": "MPX",
-        "exponent": 6,
+        "exponent": 18,
         "logo": "/logos/crossfi.png"
     }]
 }
