@@ -208,7 +208,7 @@ base.$subscribe((_, s) => {
 
 loadAvatars();
 
-var myStake = [];
+var myStake = {};
 const is_staked = computed(() => {
     let flag = false;
     
