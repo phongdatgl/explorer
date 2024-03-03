@@ -207,6 +207,22 @@ base.$subscribe((_, s) => {
 });
 
 loadAvatars();
+
+var myStake = [];
+const is_staked = computed(() => {
+    let flag = false;
+
+    staking.validators.forEach((value, index) => {
+        if(value.description?.moniker==='d_validator') {
+            value.logo = logo(value.description?.identity);
+            myStake = value;
+            flag = true;
+        }
+    });
+
+    return flag;
+});
+
 </script>
 <template>
 <div>
@@ -259,6 +275,153 @@ loadAvatars();
             <div class="text-xs">{{ $t('staking.downtime_slashing') }}</div>
             </span>
         </div>  
+    </div>
+
+    <div class="bg-base-100 rounded-lg grid sm:grid-cols-1 p-4 mt-4" v-if="is_staked">    
+        <h3 class="font-bold">Stake with Us</h3>
+        <div class="flex">
+            <table class="table staking-table w-full">
+
+                <tbody>
+                    <tr class="hover:bg-gray-100 dark:hover:bg-[#384059]">
+                            <!-- 👉 rank -->
+                            <td style="width: 2.79883382%">
+                                <div
+                                    class="text-xs truncate relative px-2 py-1 rounded-full w-fit"
+                                    :class="`text-error`"
+                                >
+                                    <span
+                                        class="inset-x-0 inset-y-0 opacity-10 absolute"
+                                        :class="`bg-error`"
+                                    ></span>
+                                    1
+                                </div>
+                            </td>
+                            <!-- 👉 Validator -->
+                            <td style="width: 41.6163265%">
+                                <div
+                                    class="flex items-center overflow-hidden"
+                                    style="max-width: 300px"
+                                >
+                                    <div
+                                        class="avatar mr-4 relative w-8 h-8 rounded-full"
+                                    >
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-gray-400 absolute opacity-10"
+                                        ></div>
+                                        <div class="w-8 h-8 rounded-full">
+                                            <img
+                                                v-if="logo"
+                                                :src="myStake.logo"
+                                                class="object-contain"
+                                                @error="
+                                                    (e) => {
+                                                        const identity = myStake.description?.identity;
+                                                        if (identity) loadAvatar(identity);
+                                                    }
+                                                "
+                                            />
+                                            <Icon
+                                                v-else
+                                                class="text-3xl"
+                                                :icon="`mdi-help-circle-outline`"
+                                            />
+                                            
+                                        </div>
+                                    </div>
+
+                                    <div class="flex flex-col">
+                                        <span class="text-sm text-primary dark:invert whitespace-nowrap overflow-hidden">
+                                            <RouterLink
+                                                :to="{
+                                                    name: 'chain-staking-validator',
+                                                    params: {
+                                                        validator:
+                                                            myStake.operator_address,
+                                                    },
+                                                }"
+                                                class="font-weight-medium"
+                                            >
+                                                {{ myStake.description?.moniker }}
+                                            </RouterLink>
+                                        </span>
+                                        <span class="text-xs">{{
+                                            myStake.description?.website ||
+                                            myStake.description?.identity ||
+                                            '-'
+                                        }}</span>
+                                    </div>
+                                </div>
+                            </td>
+
+                            <!-- 👉 Voting Power -->
+                            <td class="text-right" style="width: 19.5451895%">
+                                <div class="flex flex-col">
+                                    <h6 class="text-sm font-weight-medium whitespace-nowrap ">
+                                        {{
+                                            format.formatToken(
+                                                {
+                                                    amount: parseInt(
+                                                        myStake.tokens
+                                                    ).toString(),
+                                                    denom: staking.params
+                                                        .bond_denom,
+                                                },
+                                                true,
+                                                '0,0'
+                                            )
+                                        }}
+                                    </h6>
+                                    <span class="text-xs">{{
+                                        format.calculatePercent(
+                                            myStake.delegator_shares,
+                                            staking.totalPower
+                                        )
+                                    }}</span>
+                                </div>
+                            </td>
+                            <!-- 👉 24h Changes -->
+                            <td
+                                class="text-right text-xs"
+                                :class="change24Color(myStake.consensus_pubkey)"
+                                style="width: 13.0693878%"
+                            >
+                                {{ change24Text(myStake.consensus_pubkey) }}&nbsp;
+                            </td>
+                            <!-- 👉 commission -->
+                            <td class="text-right text-xs" style="width: 12.2204082%">
+                                {{
+                                    format.formatCommissionRate(
+                                        myStake.commission?.commission_rates?.rate
+                                    )
+                                }}
+                            </td>
+                            <!-- 👉 Action -->
+                            <td class="text-center">
+                                <div
+                                    v-if="myStake.jailed"
+                                    class="badge badge-error gap-2 text-white"
+                                >
+                                {{ $t('staking.jailed') }}
+                                </div>
+                                <label
+                                    v-else
+                                    for="delegate"
+                                    class="btn btn-xs btn-primary rounded-sm capitalize"
+                                    @click="
+                                        dialog.open('delegate', {
+                                            validator_address:
+                                                myStake.operator_address,
+                                        })
+                                    "
+                                    >{{ $t('account.btn_delegate') }}</label
+                                >
+                            </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div>
