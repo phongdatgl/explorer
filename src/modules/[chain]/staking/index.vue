@@ -208,7 +208,17 @@ base.$subscribe((_, s) => {
 
 loadAvatars();
 
-var myStake = {};
+var myStake = {
+    operator_address: String,
+    logo: String,
+    description: {moniker: String, identity: String, website: String, security_contact: String, details: String},
+    tokens: String,
+    delegator_shares: String,
+    consensus_pubkey: {},
+    commission: String,
+    jailed: Boolean,
+    status: String,
+};
 const is_staked = computed(() => {
     let flag = false;
     
