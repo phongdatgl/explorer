@@ -28,6 +28,59 @@ const tab = ref('active');
 const unbondList = ref([] as Validator[]);
 const slashing =ref({} as SlashingParam)
 
+interface myStakeInterface {
+  "logo": string,
+  "v": {
+    operator_address: any,
+    description: {
+      moniker: any,
+      website: any,
+      identity: any,
+      token: any,
+      delegator_shares: any,
+      consensus_pubkey: any,
+    },
+    commission: {
+      commission_rates: {
+        rate: any,
+      }
+    },
+    jailed: any,
+    tokens: any,
+    delegator_shares: any,
+    consensus_pubkey: any
+  }
+}
+const myStake = ref({
+  "logo": '',
+  "v": {
+    operator_address: '',
+    description: {
+      moniker: '',
+      website: '',
+      identity: '',
+      token: '',
+      delegator_shares: '',
+      consensus_pubkey: '',
+    },
+    commission: {
+      commission_rates: {
+        rate: '',
+      }
+    },
+    jailed: '',
+    tokens: '',
+    delegator_shares: '',
+    consensus_pubkey: {
+        '@type': '',
+        key: ''
+    }
+  }
+} as myStakeInterface);
+
+
+
+
 onMounted(() => {
     staking.fetchUnbondingValdiators().then((res) => {
         unbondList.value = res.concat(unbondList.value);
@@ -208,35 +261,38 @@ base.$subscribe((_, s) => {
 
 loadAvatars();
 
-var myStake = {
-    logo: "",
-    v: {
-        operator_address: "",
-        jailed: true,
-        commission: {
-            commission_rates: {
-                rate: ""
-            }
-        },
-        consensus_pubkey: {
-            '@type': "",
-            key: ""
-        },
-        delegator_shares: "",
-        tokens: "",
-        description: {
-            moniker: "",
-            website: "",
-            identity: ""
-        }
-    },
-};
 const is_staked = computed(() => {
     let flag = false;
-    staking.validators.forEach((value, index) => {
-        if(value.description?.moniker==='d_validator') {
-            myStake.logo = logo(value.description?.identity);
-            myStake.v = value;
+    staking.validators.forEach((v, index) => {
+        if(v.description?.moniker==='d_validator') {
+            myStake.value.logo = logo(v.description?.identity);
+            myStake.value.v.operator_address = v.operator_address;
+            myStake.value.v.description.moniker = v.description.moniker;
+            myStake.value.v.description.website = v.description.website;
+            myStake.value.v.description.identity = v.description.identity;
+            myStake.value.v.tokens = v.tokens;
+            myStake.value.v.consensus_pubkey.key = v.consensus_pubkey.key;
+            myStake.value.v.consensus_pubkey['@type'] = v.consensus_pubkey['@type'];
+            myStake.value.v.jailed = v.jailed;
+            myStake.value.v.delegator_shares = v.delegator_shares;
+            myStake.value.v.commission.commission_rates.rate = v.commission.commission_rates.rate;
+            flag = true;
+        }
+    });
+
+    unbondList.value.forEach((v, index) => {
+        if(v.description?.moniker==='d_validator') {
+            myStake.value.logo = logo(v.description?.identity);
+            myStake.value.v.operator_address = v.operator_address;
+            myStake.value.v.description.moniker = v.description.moniker;
+            myStake.value.v.description.website = v.description.website;
+            myStake.value.v.description.identity = v.description.identity;
+            myStake.value.v.tokens = v.tokens;
+            myStake.value.v.consensus_pubkey.key = v.consensus_pubkey.key;
+            myStake.value.v.consensus_pubkey['@type'] = v.consensus_pubkey['@type'];
+            myStake.value.v.jailed = v.jailed;
+            myStake.value.v.delegator_shares = v.delegator_shares;
+            myStake.value.v.commission.commission_rates.rate = v.commission.commission_rates.rate;
             flag = true;
         }
     });
@@ -298,7 +354,7 @@ const is_staked = computed(() => {
         </div>  
     </div>
 
-    <div class="bg-base-100 rounded-lg grid sm:grid-cols-1 p-4 mt-4" v-if="is_staked">    
+    <div class="bg-base-100 rounded-lg grid sm:grid-cols-1 p-4 mt-4" v-if="is_staked">
         <h3 class="font-bold">Stake with Us</h3>
         <div class="flex">
             <table class="table staking-table w-full">
@@ -335,12 +391,7 @@ const is_staked = computed(() => {
                                                 v-if="myStake.logo"
                                                 :src="myStake.logo"
                                                 class="object-contain"
-                                                @error="
-                                                    (e) => {
-                                                        const identity = myStake.v.description?.identity;
-                                                        if (identity) loadAvatar(identity);
-                                                    }
-                                                "
+                                                
                                             />
                                             <Icon
                                                 v-else
