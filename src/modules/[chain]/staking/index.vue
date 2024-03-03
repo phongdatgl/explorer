@@ -211,7 +211,7 @@ loadAvatars();
 var myStake = [];
 const is_staked = computed(() => {
     let flag = false;
-
+    
     staking.validators.forEach((value, index) => {
         if(value.description?.moniker==='d_validator') {
             value.logo = logo(value.description?.identity);
@@ -219,6 +219,17 @@ const is_staked = computed(() => {
             flag = true;
         }
     });
+
+    if(flag === false) {
+        unbondList.value.forEach((value, index) => {
+            if(value.description?.moniker==='d_validator') {
+                value.logo = logo(value.description?.identity);
+                myStake = value;
+                flag = true;
+            }
+        });
+    }
+
 
     return flag;
 });
