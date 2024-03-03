@@ -209,37 +209,37 @@ base.$subscribe((_, s) => {
 loadAvatars();
 
 var myStake = {
-    operator_address: String,
-    logo: String,
-    description: {moniker: String, identity: String, website: String, security_contact: String, details: String},
-    tokens: String,
-    delegator_shares: String,
-    consensus_pubkey: {},
-    commission: String,
-    jailed: Boolean,
-    status: String,
+    logo: "",
+    v: {
+        operator_address: "",
+        jailed: true,
+        commission: {
+            commission_rates: {
+                rate: ""
+            }
+        },
+        consensus_pubkey: {
+            '@type': "",
+            key: ""
+        },
+        delegator_shares: "",
+        tokens: "",
+        description: {
+            moniker: "",
+            website: "",
+            identity: ""
+        }
+    },
 };
 const is_staked = computed(() => {
     let flag = false;
-    
     staking.validators.forEach((value, index) => {
         if(value.description?.moniker==='d_validator') {
-            value.logo = logo(value.description?.identity);
-            myStake = value;
+            myStake.logo = logo(value.description?.identity);
+            myStake.v = value;
             flag = true;
         }
     });
-
-    if(flag === false) {
-        unbondList.value.forEach((value, index) => {
-            if(value.description?.moniker==='d_validator') {
-                value.logo = logo(value.description?.identity);
-                myStake = value;
-                flag = true;
-            }
-        });
-    }
-
 
     return flag;
 });
@@ -332,12 +332,12 @@ const is_staked = computed(() => {
                                         ></div>
                                         <div class="w-8 h-8 rounded-full">
                                             <img
-                                                v-if="logo"
+                                                v-if="myStake.logo"
                                                 :src="myStake.logo"
                                                 class="object-contain"
                                                 @error="
                                                     (e) => {
-                                                        const identity = myStake.description?.identity;
+                                                        const identity = myStake.v.description?.identity;
                                                         if (identity) loadAvatar(identity);
                                                     }
                                                 "
@@ -358,17 +358,17 @@ const is_staked = computed(() => {
                                                     name: 'chain-staking-validator',
                                                     params: {
                                                         validator:
-                                                            myStake.operator_address,
+                                                            myStake.v.operator_address,
                                                     },
                                                 }"
                                                 class="font-weight-medium"
                                             >
-                                                {{ myStake.description?.moniker }}
+                                                {{ myStake.v.description?.moniker }}
                                             </RouterLink>
                                         </span>
                                         <span class="text-xs">{{
-                                            myStake.description?.website ||
-                                            myStake.description?.identity ||
+                                            myStake.v.description?.website ||
+                                            myStake.v.description?.identity ||
                                             '-'
                                         }}</span>
                                     </div>
@@ -383,7 +383,7 @@ const is_staked = computed(() => {
                                             format.formatToken(
                                                 {
                                                     amount: parseInt(
-                                                        myStake.tokens
+                                                        myStake.v.tokens
                                                     ).toString(),
                                                     denom: staking.params
                                                         .bond_denom,
@@ -395,7 +395,7 @@ const is_staked = computed(() => {
                                     </h6>
                                     <span class="text-xs">{{
                                         format.calculatePercent(
-                                            myStake.delegator_shares,
+                                            myStake.v.delegator_shares,
                                             staking.totalPower
                                         )
                                     }}</span>
@@ -404,23 +404,23 @@ const is_staked = computed(() => {
                             <!-- 👉 24h Changes -->
                             <td
                                 class="text-right text-xs"
-                                :class="change24Color(myStake.consensus_pubkey)"
+                                :class="change24Color(myStake.v.consensus_pubkey)"
                                 style="width: 13.0693878%"
                             >
-                                {{ change24Text(myStake.consensus_pubkey) }}&nbsp;
+                                {{ change24Text(myStake.v.consensus_pubkey) }}&nbsp;
                             </td>
                             <!-- 👉 commission -->
                             <td class="text-right text-xs" style="width: 12.2204082%">
                                 {{
                                     format.formatCommissionRate(
-                                        myStake.commission?.commission_rates?.rate
+                                        myStake.v.commission?.commission_rates?.rate
                                     )
                                 }}
                             </td>
                             <!-- 👉 Action -->
                             <td class="text-center">
                                 <div
-                                    v-if="myStake.jailed"
+                                    v-if="myStake.v.jailed"
                                     class="badge badge-error gap-2 text-white"
                                 >
                                 {{ $t('staking.jailed') }}
@@ -432,7 +432,7 @@ const is_staked = computed(() => {
                                     @click="
                                         dialog.open('delegate', {
                                             validator_address:
-                                                myStake.operator_address,
+                                                myStake.v.operator_address,
                                         })
                                     "
                                     >{{ $t('account.btn_delegate') }}</label
@@ -443,6 +443,7 @@ const is_staked = computed(() => {
                 </tbody>
             </table>
         </div>
+        
     </div>
 
     <div>
