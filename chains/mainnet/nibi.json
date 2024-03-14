@@ -1,0 +1,16 @@
+{
+    "chain_name": "Nibiru",
+    "api": ["https://nibi.api.dvalidator.com"],
+    "rpc": ["https://nibi.api.dvalidator.com"],
+	"sdk_version": "v1.0.2",
+    "coin_type": 118,
+    "min_tx_fee": 1500,
+    "addr_prefix": "nibiru",
+    "logo": "/logos/nibiru.jpg",
+    "assets": [{
+        "base": "unibi",
+        "symbol": "NIBI",
+        "exponent": 6,
+        "logo": "/logos/nibiru.jpg"
+    }]
+}
