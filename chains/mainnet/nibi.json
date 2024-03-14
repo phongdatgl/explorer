@@ -5,7 +5,7 @@
 	"sdk_version": "v1.0.2",
     "coin_type": 118,
     "min_tx_fee": 1500,
-    "addr_prefix": "nibiru",
+    "addr_prefix": "nibi",
     "logo": "/logos/nibiru.jpg",
     "assets": [{
         "base": "unibi",
