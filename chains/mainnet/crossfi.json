@@ -5,7 +5,7 @@
 	"sdk_version": "v0.2.0",
     "coin_type": 118,
     "min_tx_fee": 1500,
-    "addr_prefix": "crossfi",
+    "addr_prefix": "mx",
     "logo": "/logos/crossfi.png",
     "assets": [{
         "base": "mpx",
